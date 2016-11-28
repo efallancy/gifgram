@@ -1,2 +1,17 @@
-<h1>Comments#index</h1>
-<p>Find me in app/views/comments/index.html.erb</p>
+<div class="comment">
+  <div class="comment-post"><%= image_tag @post.post_gif %></div>
+  <div>
+    <p><%= @post.caption %></p>
+    <div class="comments">
+
+      <% @post.comments.each do | comment | %>
+        <div><%= comment.comment_post %></div>
+      <% end %>
+      <br />
+      <%= form_for @comment, :url => user_post_comments_path( :user_id => @post.user.id, :post_id => @post ) do | comment | %>
+         <%= comment.text_field :comment_post, :placeholder => "Add comment..." %> <%= comment.submit %>
+      <% end %>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<h2>Profile</h2>
+<h5>You are, what you said you are</h5>
+
+
+<div class="user">
+ <p>Name: <%= link_to( @user.name, edit_user_path( @user ) ) %></p>
+ <p>Username: @<%= link_to( @user.username, user_posts_path( @user ) )  %></p>
+ <p>Email: <%= @user.email %></p>
+ <% if @user.profile_img != "" %>
+   <p>Profile Image <%= image_tag( @user.profile_img ) %></p>
+ <% else %>
+   <p>No image temporarily</p>
+ <% end %>
+</div>

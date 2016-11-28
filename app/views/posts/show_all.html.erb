@@ -1,0 +1,8 @@
+<h2>Showing all</h2>
+<% @posts.each do | post | %>
+  <div>
+    <%= post.caption %>
+    <br />
+    <%= link_to( image_tag( post.post_gif ) , user_post_comments_path( :user_id => post.user.id, :post_id => post ) )%>
+  </div>
+<% end %>

@@ -68,43 +68,43 @@ p2 = Post.create( {
 
 p3 = Post.create( {
   :caption => "Ya damn right, brah!",
-  :post_gif => "http://giphy.com/gifs/DqUuMcN4ifTYQ/html5",
+  :post_gif => "http://i.giphy.com/3oGRFp0AqM0BY4axjO.gif",
   :user_id => u1.id
 } )
 
 p4 = Post.create( {
   :caption => "This season better be coming quick",
-  :post_gif => "http://giphy.com/gifs/d31vOg7kyZlIDFOo/html5",
+  :post_gif => "http://i.giphy.com/9dF5VJahr4sBG.gif",
   :user_id => u2.id
 } )
 p5 = Post.create( {
   :caption => "You do know it's just around the corner...",
-  :post_gif => "http://giphy.com/gifs/jSVt1qPanIc9i/html5",
+  :post_gif => "http://i.giphy.com/26gJz3pvlJsEAbJss.gif",
   :user_id => u4.id
 } )
 p6 = Post.create( {
   :caption => "Oh, hello there!",
-  :post_gif => "http://giphy.com/gifs/g4Mfy6DwkxTOg/html5",
+  :post_gif => "http://i.giphy.com/fKNTlqx1hvfeE.gif",
   :user_id => u5.id
 } )
 p7 = Post.create( {
   :caption => "Seriously, this is how I look when running on the treadmill",
-  :post_gif => "http://giphy.com/gifs/LBplyeexCb960/html5",
+  :post_gif => "http://i.giphy.com/NRIT2SDViYasM.gif",
   :user_id => u4.id
 } )
 p8 = Post.create( {
   :caption => "It's nap time!",
-  :post_gif => "http://giphy.com/gifs/uSGwdLt9jPouA/html5",
+  :post_gif => "http://i.giphy.com/xT8qB3iQFA5FXbszy8.gif",
   :user_id => u1.id
 } )
 p9 = Post.create( {
   :caption => "This sums me up right now",
-  :post_gif => "http://giphy.com/gifs/FqdruC6cJYXxC/html5",
+  :post_gif => "http://i.giphy.com/uwfPLgaQvyNi0.gif",
   :user_id => u2.id
 } )
 p10 = Post.create( {
   :caption => "Every single morning be like...",
-  :post_gif => "http://giphy.com/gifs/3o6gEf9kFRwVZEIcBq/html5",
+  :post_gif => "http://i.giphy.com/12sDN7sJ0TfmLe.gif",
   :user_id => u3.id
 } )
 

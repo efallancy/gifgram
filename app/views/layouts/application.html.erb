@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Fancygram</title>
+  <title>gif.gram</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <h1>FancyGram</h1>
+  <h1>GifGram</h1>
 
   <nav>
     <%= link_to( "Home", root_path ) %> |
@@ -16,7 +16,9 @@
     <%= link_to( "Users", users_path ) %>
   </nav>
 
-  <%= yield %>
+  <div class="container">
+    <%= yield %>
+  </div>
 
 </body>
 </html>
