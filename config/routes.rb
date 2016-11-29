@@ -3,15 +3,16 @@ Rails.application.routes.draw do
   root 'pages#home'
   get '/about' => 'pages#about'
 
+  # Login page
   get '/login' => 'sessions#new', :as => 'login'
 
-  get '/posts' => 'posts#show_all', :as => 'posts'
   # Sign Up
   post '/login' => 'sessions#create'
 
   # Logout
   delete '/logout' => 'sessions#destroy'
 
+  get '/posts' => 'posts#show_all', :as => 'posts'
   # User routes
   resources :users do
     # Post routes

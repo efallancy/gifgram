@@ -5,16 +5,37 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 </head>
 <body>
-  <h1>GifGram</h1>
 
   <nav>
-    <%= link_to( "Home", root_path ) %> |
-    <%= link_to( "About", about_path) %> |
-    <%= link_to( "Grams", posts_path ) %> |
-    <%= link_to( "Users", users_path ) %>
+    <div class="nav-wrapper row deep-purple lighten-2">
+      <% if @current_user.present? %>
+        <%= link_to( "GifGram", posts_path, :class => "brand-logo col s4" ) %>
+      <% else %>
+        <%= link_to( "GifGram", root_path, :class => "brand-logo col s4" ) %>
+      <% end %>
+      <ul id="nav-mobile" class="right high-on-med-and-down">
+        <% if @current_user.present? %>
+          <li><%= link_to( "Gif-load", posts_path ) %></li>
+          <li><%= link_to( "Gif-me", user_posts_path( @current_user ) ) %></li>
+          <li><%= link_to( "Edit profile", edit_user_path( @current_user ) ) %></li>
+          <li><%= link_to( "Logout @#{ @current_user.username }", logout_path, :method => :delete ) %></li>
+        <% else %>
+          <li><%= link_to( "Home", root_path ) %></li>
+          <li><%= link_to( "About", about_path) %></li>
+          <li><%= link_to( "Sign In", login_path ) %></li>
+          <li><%= link_to( "Sign Up", new_user_path ) %></li>
+        <% end %>
+      </ul>
+    </div>
   </nav>
+
+  <br />
 
   <div class="container">
     <%= yield %>

@@ -1,15 +1,1 @@
-<h2>All Users</h2>
-<h4>You better be the admin to be able to see this</h4>
-
-<% @users.each do | user | %>
-   <div class="users">
-     <p>Name: <%= link_to( user.name, edit_user_path( user ) ) %></p>
-     <p>Username: @<%= link_to( user.username, user_posts_path( user ) )  %></p>
-     <p>Email: <%= user.email %></p>
-     <% if user.profile_img != "" %>
-       <p>Profile Image <%= image_tag( user.profile_img ) %></p>
-     <% else %>
-       <p>No image temporarily</p>
-     <% end %>
-   </div>
-<% end %>
+<h2>User index</h2>

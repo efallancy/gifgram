@@ -1,0 +1,7 @@
+<%= form_for @user do | u | %>
+   <p>Username: <%= u.text_field :username %></p>
+   <p>Email: <%= u.email_field :email %></p>
+   <p>Password: <%= u.password_field :password %></p>
+   <p>Password confirmation: <%= u.password_field :password_confirmation %></p>
+   <%= u.submit %>
+<% end %>

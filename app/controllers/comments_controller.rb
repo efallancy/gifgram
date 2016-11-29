@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   def index
     @post = Post.find_by( :id => params[ :post_id ] )
-    @comment = @post.comments.new
-    # @comments = Comment.find_by( :post_id => params[ :post_id ] )
+    @comments = @post.comments.order( :created_at )
+    @comment = Comment.new
   end
 
   # TODO double confirm on this thing
@@ -11,14 +11,15 @@ class CommentsController < ApplicationController
 
   def create
     comment = Comment.new( comment_params )
-    comment.user_id = params[ :user_id ]
+    comment.user_id = @current_user.id
     comment.post_id = params[ :post_id ]
     comment.save
-    # binding.pry
+
     post = comment.post_id
     user = comment.user_id
 
-    redirect_to user_post_comments_path( :user_id => user, :post_id => post )
+    redirect_to( user_post_comments_path( :user_id => user, :post_id => post ) )
+
   end
 
   # TODO this still need to be done properly
@@ -31,6 +32,9 @@ class CommentsController < ApplicationController
 
   # TODO Ensure to have this delete comment method available
   def destroy
+    comment = Comment.find_by( :id => params[ :id ] )
+    comment.destroy
+    redirect_to( user_post_comments_path( :user_id => params[ :user_id ], :post_id => params[ :post_id ] ) )
   end
 
   private

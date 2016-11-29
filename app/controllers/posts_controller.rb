@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def index
-    @posts = User.find_by( :id => params[ :user_id ] ).posts.order( :created_at )
+    @posts = User.find_by( :id => params[ :user_id ] ).posts.order( created_at: :desc )
+    @post = Post.new
   end
 
   def show
@@ -11,7 +12,9 @@ class PostsController < ApplicationController
     # TODO make sure to use the API Giphy / Gif generator
     # This will be used to crete new gif
     post = Post.new( post_params )
+    post.user_id = @current_user.id
     post.save
+    redirect_to( posts_path )
   end
 
   def edit
@@ -27,10 +30,15 @@ class PostsController < ApplicationController
 
   # TODO make sure to have this being implemented
   def destroy
+    post = Post.find_by( :id => params[ :id ] )
+    post.destroy
+
+    redirect_to( user_posts_path( @current_user ) )
   end
 
   def show_all
-    @posts = Post.all
+    @posts = Post.order( created_at: :desc )
+    @post = Post.new
   end
 
   private

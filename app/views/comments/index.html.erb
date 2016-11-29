@@ -1,17 +1,37 @@
-<div class="comment">
-  <div class="comment-post"><%= image_tag @post.post_gif %></div>
-  <div>
-    <p><%= @post.caption %></p>
-    <div class="comments">
-
-      <% @post.comments.each do | comment | %>
-        <div><%= comment.comment_post %></div>
+<div class="row">
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="card">
+      <div class="card-image">
+        <%= image_tag @post.post_gif %>
+      </div>
+      <div class="card-content">
+        <span class="card-title grey-text text-darken-4"><%= @post.caption %></span>
+        <p>Few minutes ago</p>
+      </div>
+      <% if @current_user.id == @post.user.id %>
+        <div class="card-action">
+          <%= link_to( "Delete Post", user_post_path( :id => @post, :user_id => @post.user.id ), :method => "delete" ) %>
+        </div>
       <% end %>
-      <br />
-      <%= form_for @comment, :url => user_post_comments_path( :user_id => @post.user.id, :post_id => @post ) do | comment | %>
-         <%= comment.text_field :comment_post, :placeholder => "Add comment..." %> <%= comment.submit %>
-      <% end %>
-
     </div>
   </div>
+</div>
+
+
+<div class="comments">
+
+  <% @comments.each do | comment | %>
+    <div>
+      <% if @current_user.id == comment.post.user.id %>
+        @<%= comment.user.username %> >> <%= comment.comment_post %> ( <%= link_to( "Edit comment", edit_user_post_comment_path( comment.post.user_id, comment.post_id, comment.id  ) ) %> | <%= link_to( "Delete comment", user_post_comment_path( comment.post.user_id, comment.post_id, comment.id  ), :method => "delete" ) %> )
+      <% else %>
+        @<%= comment.user.username %> >> <%= comment.comment_post %>
+      <% end %>
+    </div>
+  <% end %>
+  <br />
+  <%= form_for @comment, :url => user_post_comments_path( :user_id => @post.user.id, :post_id => @post ) do | comment | %>
+     <%= comment.text_field :comment_post, :placeholder => "Add comment...", :required => true %> <%= comment.submit "Comment" %>
+  <% end %>
+
 </div>

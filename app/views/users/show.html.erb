@@ -1,14 +1,13 @@
-<h2>Profile</h2>
-<h5>You are, what you said you are</h5>
+<h2>Gifer Profile</h2>
 
-
-<div class="user">
- <p>Name: <%= link_to( @user.name, edit_user_path( @user ) ) %></p>
- <p>Username: @<%= link_to( @user.username, user_posts_path( @user ) )  %></p>
- <p>Email: <%= @user.email %></p>
- <% if @user.profile_img != "" %>
-   <p>Profile Image <%= image_tag( @user.profile_img ) %></p>
- <% else %>
-   <p>No image temporarily</p>
- <% end %>
+<div>
+  <p>Name: <%= @current_user.name %></p>
+  <p>Username: @<%= @current_user.username %> </p>
+  <p>Email: <%= @current_user.email %></p>
+  <p>Biography: <%= @current_user.biography %></p>
+  <% if @current_user.profile_img.size > 0 %>
+    <%= image_tag @current_user.profile_img %>
+  <% else %>
+    <p>You do not have any profile image yet</p>
+  <% end %>
 </div>

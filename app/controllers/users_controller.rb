@@ -1,16 +1,18 @@
 class UsersController < ApplicationController
+  before_action :authorise, :only => [ :edit, :update ]
+
   def index
     @users = User.all
   end
 
   def show
     # TODO Need to change the params[ :id ] with sessions[ :user_id ]
-    @user = User.find_by( :id => params[ :id ] )
+    @user = @current_user
   end
 
   def edit
     # TODO Changed on to use the sessions[ :id ]
-    @user = User.find_by( :id => params[ :id ] )
+    @user = @current_user
   end
 
   def new
@@ -19,30 +21,39 @@ class UsersController < ApplicationController
 
   def create
     # TODO Make sure reference it with sessions
-    user = User.new( user_params )
-    user.save
+    @user = User.new( user_params )
+    if @user.save
+      session[ :user_id ] = @user.id
+      redirect_to( edit_user_path )
+    else
+      render :new
+    end
   end
 
   def update
     # TODO make sure to use current user
-    user = User.find( params[ :id ] )
-    user.update( user_params )
-    redirect_to user_path( user )
+    user = @current_user
+    if user.update( user_params )
+      redirect_to user_path( user )
+    else
+      render :edit
+    end
   end
 
   def destroy
     # TODO make sure to use current user
-    user = User.find( params[ :id ] )
+    user = @current_user
     user.destroy
+    session[ :user_id ] = nil
 
     # TODO this shall redirect to logout
-    redirect_to users_path
+    redirect_to root_path
   end
 
 
   private
     def user_params
-      params.require( :user ).permit( :name, :username, :email, :profile_img, :biography )
+      params.require( :user ).permit( :name, :username, :email, :profile_img, :biography, :password, :password_confirmation )
     end
 
     # TODO Need to configure the redirect when login is failed
