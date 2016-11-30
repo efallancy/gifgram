@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   delete '/logout' => 'sessions#destroy'
 
   get '/posts' => 'posts#show_all', :as => 'posts'
+
+
+  post '/users/:user_id/posts/:post_id/comments/magictouch' => 'comments#create_magic_touch', :as => 'magic_touch'
+  post '/users/:user_id/posts/:post_id/comments/mainstream' => 'comments#create_mainstream', :as => 'mainstream'
   # User routes
   resources :users do
     # Post routes
@@ -22,6 +26,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -6,7 +6,7 @@ u1 = User.create( {
   :username => "gucco",
   :name => "Gucco",
   :email => "gucco@ga.co",
-  :profile_img => "",
+  :profile_img => "https://twistedsifter.files.wordpress.com/2009/12/stormtrooper-line-art.jpg?w=495&h=495",
   :biography => "It's me, the real Gucco",
   :password => "chicken",
   :password_confirmation => "chicken"
@@ -16,7 +16,7 @@ u2 = User.create( {
   :username => "southernface",
   :name => "The South Face",
   :email => "southface@ga.co",
-  :profile_img => "",
+  :profile_img => "http://vignette3.wikia.nocookie.net/lego/images/1/1a/Chewie.jpg/revision/latest?cb=20131031235204",
   :biography => "The Southern from the wello",
   :password => "chicken",
   :password_confirmation => "chicken"
@@ -26,7 +26,7 @@ u3 = User.create( {
   :username => "starbutt",
   :name => "Starbutt",
   :email => "starbutt@ga.co",
-  :profile_img => "",
+  :profile_img => "https://mi-od-live-s.legocdn.com/r/www/r/catalogs/-/media/catalogs/characters/star%20wars/new%20full%20body/updated/75140_admiral-ackbar_mugshot_672x896.png?l.r2=1586324475",
   :biography => "Cheerful star with sparkly butt",
   :password => "chicken",
   :password_confirmation => "chicken"
@@ -36,7 +36,7 @@ u4 = User.create( {
   :username => "smithens",
   :name => "The Smithens",
   :email => "smithens@ga.co",
-  :profile_img => "",
+  :profile_img => "https://mi-od-live-s.legocdn.com/r/www/r/catalogs/-/media/catalogs/characters/star%20wars/new%20full%20body/captain%20tarpals.png?l.r2=993879118",
   :biography => "Local Imaginery Band",
   :password => "chicken",
   :password_confirmation => "chicken"
@@ -46,7 +46,7 @@ u5 = User.create( {
   :username => "bluekoi",
   :name => "The Remarkable Blue Koi",
   :email => "bluekoi@ga.co",
-  :profile_img => "",
+  :profile_img => "https://mi-od-live-s.legocdn.com/r/www/r/catalogs/-/media/catalogs/characters/star%20wars/new%20full%20body/updates%20june/mugshot-672x896_0014_poe.png?l.r2=710010615",
   :biography => "Yes, I am a Koi but actually not",
   :password => "chicken",
   :password_confirmation => "chicken"
@@ -138,6 +138,16 @@ p8.comments << c1
 p10.comments << c2
 p2.comments << c3
 
-# u3.comments << c1
-# u2.comments << c2
-# u5.comments << c3
+users = User.all
+user = users.first
+following = users[ 1...5 ]
+followers = users[ 2...5 ]
+
+# User 1 following
+following.each do | f |
+  user.follow( f )
+end
+# User 1 follower
+followers.each do | f |
+  f.follow( user )
+end

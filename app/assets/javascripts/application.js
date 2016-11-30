@@ -14,3 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require materialize
+
+var ready;
+ready = function() {
+
+  $('.modal').modal();
+  $('select').material_select();
+
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

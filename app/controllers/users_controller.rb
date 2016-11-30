@@ -33,7 +33,15 @@ class UsersController < ApplicationController
   def update
     # TODO make sure to use current user
     user = @current_user
-    if user.update( user_params )
+
+    if params[ :file ].present?
+      req = Cloudinary::Uploader.upload( params[ :file ] )
+      user.profile_img = req[ 'public_id' ]
+    end
+
+    user.assign_attributes( user_params )
+    # user.update( user_params )
+    if user.save
       redirect_to user_path( user )
     else
       render :edit
@@ -49,21 +57,6 @@ class UsersController < ApplicationController
     # TODO this shall redirect to logout
     redirect_to root_path
   end
-
-  # Follow a user
-  def follow( other_user )
-    active_relationships.create( :followed_id => other_user.id )
-  end
-
-  # Unfollow a user
-  def unfollow( other_user )
-    active_relationships.find_by( :follower_id => other_user.id ).destroy
-  end
-
-  def following?( other_user )
-    following.include?( other_user )
-  end
-
 
   private
     def user_params

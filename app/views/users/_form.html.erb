@@ -1,8 +1,8 @@
-<%= form_for @user do | u | %>
+<%= form_for( @user, :html => { :multipart => true } ) do | u | %>
    <p>Name: <%= u.text_field :name %></p>
    <p>Username: @<%= @user.username %></p>
    <p>Email: <%= u.email_field :email %></p>
-   <p>Profile Image: <%= u.text_field :profile_img %></p>
+   <p>Profile Image: <%= u.cl_image_upload :profile_img %></p>
    <p>Biography: <%= u.text_field :biography %></p>
    <%= u.submit %>
 <% end %>

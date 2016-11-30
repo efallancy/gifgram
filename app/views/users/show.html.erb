@@ -6,7 +6,7 @@
   <p>Email: <%= @current_user.email %></p>
   <p>Biography: <%= @current_user.biography %></p>
   <% if @current_user.profile_img.size > 0 %>
-    <%= image_tag @current_user.profile_img %>
+    <%= cl_image_tag @current_user.profile_img %>
   <% else %>
     <p>You do not have any profile image yet</p>
   <% end %>

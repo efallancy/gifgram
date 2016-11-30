@@ -18,7 +18,11 @@
         </div>
         <div class="card-content row valign-wrapper">
           <div class="col s2">
-            <%= image_tag post.user.profile_img, :alt => post.user.name, :class => "circle responsive-img" %>
+            <% if post.user.profile_img.include?( 'http:' ) || post.user.profile_img.include?( 'https:' ) %>
+              <%= image_tag post.user.profile_img, :alt => post.user.name, :class => "circle responsive-img" %>
+            <% else %>
+              <%= cl_image_tag post.user.profile_img, :alt => post.user.name, :class => "circle responsive-img" %>
+            <% end %>
           </div>
           <div class="col s10">
             <span class="card-title grey-text text-darken-4"><%= post.caption %></span>

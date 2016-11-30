@@ -4,34 +4,155 @@
       <div class="card-image">
         <%= image_tag @post.post_gif %>
       </div>
-      <div class="card-content">
-        <span class="card-title grey-text text-darken-4"><%= @post.caption %></span>
-        <p>Few minutes ago</p>
-      </div>
-      <% if @current_user.id == @post.user.id %>
-        <div class="card-action">
-          <%= link_to( "Delete Post", user_post_path( :id => @post, :user_id => @post.user.id ), :method => "delete" ) %>
+      <div class="card-content row valign-wrapper">
+        <div class="col s2">
+          <% if @post.user.profile_img.include?( 'http:' ) || @post.user.profile_img.include?( 'https:' ) %>
+            <%= image_tag @post.user.profile_img, :alt => @post.user.name, :class => "circle responsive-img" %>
+          <% else %>
+            <%= cl_image_tag @post.user.profile_img, :alt => @post.user.name, :class => "circle responsive-img" %>
+          <% end %>
         </div>
-      <% end %>
+        <div class="col s10">
+          <span class="card-title grey-text text-darken-4"><%= @post.caption %></span>
+          <p>Few minutes ago</p>
+        </div>
+      </div>
+      <div class="card-action right-align">
+        <%= link_to( "I want to comment", "#modalcomment", :class => "modal-trigger waves-effect waves-light btn" ) %>
+        <% if @current_user.id == @post.user.id %>
+          <%= link_to( "Delete Post", user_post_path( :id => @post, :user_id => @post.user.id ), :method => "delete", :class => "modal-trigger waves-effect waves-light btn" ) %>
+        <% end %>
+      </div>
+
     </div>
   </div>
 </div>
 
 
-<div class="comments">
+<% @comments.each do | comment | %>
+  <% if @current_user.id == comment.user.id %>
+    <div class="row">
+      <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-image">
+              <% if comment.comment_post.include?( "http://" ) || comment.comment_post.include?( "https://" ) %>
+                <%= image_tag( comment.comment_post ) %>
+              <% else %>
+                <%= cl_image_tag( comment.comment_post ) %>
+              <% end %>
+            </div>
+            <div class="card-content row valign-wrapper">
+              <div class="col s2">
+                <% if comment.user.profile_img.include?( 'http:' ) || comment.user.profile_img.include?( 'https:' ) %>
+                  <%= image_tag comment.user.profile_img, :alt => comment.user.name, :class => "circle responsive-img" %>
+                <% else %>
+                  <%= cl_image_tag comment.user.profile_img, :alt => comment.user.name, :class => "circle responsive-img" %>
+                <% end %>
+              </div>
+              <div class="col s10">
+                <span class="card-title grey-text text-darken-4">Commented by <%= comment.user.name %></span>
+                <p>Few minutes ago</p>
+              </div>
+            </div>
+            <div class="card-action right-align">
+              <%= link_to( "Delete comment", user_post_comment_path( comment.post.user_id, comment.post_id, comment.id  ), :method => "delete" ) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+    <div class="row">
+      <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-image">
+              <% if comment.comment_post.include?( "http://" ) || comment.comment_post.include?( "https://" ) %>
+                <%= image_tag( comment.comment_post ) %>
+              <% else %>
+                <%= cl_image_tag( comment.comment_post ) %>
+              <% end %>
+            </div>
+            <div class="card-content row valign-wrapper">
+              <div class="col s2">
+                <% if comment.user.profile_img.include?( 'http:' ) || comment.user.profile_img.include?( 'https:' ) %>
+                  <%= image_tag comment.user.profile_img, :alt => comment.user.name, :class => "circle responsive-img" %>
+                <% else %>
+                  <%= cl_image_tag comment.user.profile_img, :alt => comment.user.name, :class => "circle responsive-img" %>
+                <% end %>
+              </div>
+              <div class="col s10">
+                <span class="card-title grey-text text-darken-4">Commented by <%= comment.user.name %></span>
+                <p>Few minutes ago</p>
+              </div>
+            </div>
 
-  <% @comments.each do | comment | %>
-    <div>
-      <% if @current_user.id == comment.post.user.id %>
-        @<%= comment.user.username %> >> <%= comment.comment_post %> ( <%= link_to( "Edit comment", edit_user_post_comment_path( comment.post.user_id, comment.post_id, comment.id  ) ) %> | <%= link_to( "Delete comment", user_post_comment_path( comment.post.user_id, comment.post_id, comment.id  ), :method => "delete" ) %> )
-      <% else %>
-        @<%= comment.user.username %> >> <%= comment.comment_post %>
-      <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+<% end %>
+
+  <!-- Modal Structure -->
+  <div id="modalcomment" class="modal">
+    <div class="modal-content">
+      <h4 class="center-align">Comments</h4>
+      <div class="row">
+        <div class="col s12">
+          <ul class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a class="active" href="#takedefault">Take As It Is</a></li>
+            <li class="tab col s3"><a href="#magictouch">Magic Touch</a></li>
+            <li class="tab col s3"><a href="#mainstream">Mainstream</a></li>
+          </ul>
+        </div>
+        <div id="takedefault" class="col s12">
+          <%= form_for @comment, :url => user_post_comments_path( :user_id => @post.user.id, :post_id => @post ), :html => { :multipart => true } do | comment | %>
+             <div>
+               Image: <%= comment.cl_image_upload :comment_post, :placeholder => "Add comment...", :required => true %>
+             </div>
+             <div class="right-align">
+               <%= comment.submit "Comment", :class => "modal-action modal-close waves-effect waves-green btn-flat" %>
+             </div>
+          <% end %>
+          <div class="right-align">
+
+          </div>
+        </div>
+        <div id="magictouch" class="col s12">
+          <%= form_for @comment, :url => magic_touch_path( :user_id => @post.user.id, :post_id => @post ), :method => "post", :html => { :multipart => true } do | comment |%>
+             <div>
+               Top text: <%= text_field_tag :top_text %>
+             </div>
+             <div>
+               Bottom text: <%= text_field_tag :bottom_text %>
+             </div>
+             <div>
+               Image: <%= comment.cl_image_upload :comment_post %>
+             </div>
+             <div class="right-align">
+               <%= submit_tag "Comment", :class => "modal-action modal-close waves-effect waves-green btn-flat" %>
+             </div>
+          <% end %>
+
+        </div>
+        <div id="mainstream" class="col s12">
+          <%= form_tag mainstream_path( :user_id => @post.user.id, :post_id => @post ), :method => "post", :html => { :multipart => true } do %>
+             <div>
+               Top text: <%= text_field_tag :top_text %>
+             </div>
+             <div>
+               Bottom text: <%= text_field_tag :bottom_text %>
+             </div>
+             <%= label_tag "Template" %>
+             <div class="input-field col s12">
+              <%= select_tag( :template_id, options_for_select( @templates ) )%>
+             </div>
+             <div class="right-align">
+               <%= submit_tag "Comment", :class => "modal-action modal-close waves-effect waves-green btn-flat" %>
+             </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-  <br />
-  <%= form_for @comment, :url => user_post_comments_path( :user_id => @post.user.id, :post_id => @post ) do | comment | %>
-     <%= comment.text_field :comment_post, :placeholder => "Add comment...", :required => true %> <%= comment.submit "Comment" %>
-  <% end %>
-
+    <div class="modal-footer">
+    </div>
+  </div>
 </div>
