@@ -50,6 +50,20 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  # Follow a user
+  def follow( other_user )
+    active_relationships.create( :followed_id => other_user.id )
+  end
+
+  # Unfollow a user
+  def unfollow( other_user )
+    active_relationships.find_by( :follower_id => other_user.id ).destroy
+  end
+
+  def following?( other_user )
+    following.include?( other_user )
+  end
+
 
   private
     def user_params
