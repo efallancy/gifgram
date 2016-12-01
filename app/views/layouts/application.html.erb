@@ -10,7 +10,7 @@
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-  
+
 </head>
 <body>
 
@@ -25,7 +25,7 @@
         <% if @current_user.present? %>
           <li><%= link_to( "Gif-load", posts_path ) %></li>
           <li><%= link_to( "Gif-me", user_posts_path( @current_user ) ) %></li>
-          <li><%= link_to( "Edit profile", edit_user_path( @current_user ) ) %></li>
+          <li><%= link_to( "Edit profile", user_path( @current_user ) ) %></li>
           <li><%= link_to( "Logout @#{ @current_user.username }", logout_path, :method => :delete ) %></li>
         <% else %>
           <li><%= link_to( "Home", root_path ) %></li>

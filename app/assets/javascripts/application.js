@@ -20,9 +20,9 @@ ready = function() {
 
   $('.modal').modal();
   $('select').material_select();
-  $('ul.tabs').tabs();  
+  $('ul.tabs').tabs();
   $('.collapsible').collapsible();
-
+  $('.carousel').carousel();
 };
 
 $(document).ready(ready);

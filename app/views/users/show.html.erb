@@ -1,14 +1,25 @@
-<h2>Gifer Profile</h2>
+<h2 class="center-align">Gifer Profile</h2>
 
-<div>
-    <p>Name: <%= @user.name %></p>
-    <p>Username: @<%= @user.username %></p>
-    <p>Email: <%= @user.email %></p>
-    <p>Biography: <%= @user.biography %></p>
-    <%= render :partial => 'stats' %>
-      <% if @user.profile_img.size > 0 %>
-       <%= cl_image_tag @user.profile_img %>
-      <% else %>
-        <p>You do not have any profile image yet</p>
-      <% end %>
+<div class="col s12 m8 offset-m2 l6 offset-l3">
+  <div class="card-panel grey lighten-5 z-depth-1">
+    <div class="row valign-wrapper">
+      <div class="col s2">
+        <% if @user.profile_img.size > 0 %>
+         <%= cl_image_tag @user.profile_img, :class => "circle responsive-img" %>
+        <% else %>
+          <%= cl_image_tag '/paper-bag-face.png', :class => "circle responsive-img" %>
+        <% end %>
+      </div>
+      <div class="col s8">
+        <p>Name: <%= @user.name %></p>
+        <p>Username: @<%= @user.username %></p>
+        <p>Email: <%= @user.email %></p>
+        <p>Biography: <%= @user.biography %></p>
+        <div>
+          <%= link_to( "Edit profile", edit_user_path( @user ), :class => "btn deep-purple lighten-2" ) %>
+          <%= link_to( "Delete this profile", user_path( @user ), :method => "delete", :class => "btn deep-purple lighten-2" ) %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,5 +1,9 @@
 class PagesController < ApplicationController
   def home
+    req = HTTParty.get( "http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC" )
+    @req = req[ "data" ]
+
+    puts @req
   end
 
   def about
