@@ -28,7 +28,8 @@
           <%= link_to( cl_image_tag( post.post_gif ), user_post_comments_path( :user_id => post.user.id, :post_id => post.id ) )%>
         </div>
         <div class="card-content">
-          <p><%= post.caption %></p>
+          <span class="card-title grey-text text-darken-4"><%= post.caption %></span>
+          <p>Posted <%= time_ago_in_words( post.created_at ) %> ago</p>
         </div>
       </div>
     </div>

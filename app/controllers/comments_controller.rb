@@ -63,7 +63,15 @@ class CommentsController < ApplicationController
   def create_mainstream
 
     top_text = params[ :top_text ]
+    top_text = top_text.tr( " ", "-" )
+    top_text = top_text.tr( "-", "--" )
+    top_text = top_text.tr( "_", "__" )
+
     bottom_text = params[ :bottom_text ]
+    bottom_text = bottom_text.tr( " ", "-" )
+    bottom_text = bottom_text.tr( "-", "--" )
+    bottom_text = bottom_text.tr( "_", "__" )
+
     template_id = params[ :template_id ]
     link = template_links[ template_id.to_i - 1 ]
 
@@ -84,15 +92,8 @@ class CommentsController < ApplicationController
     redirect_to( user_post_comments_path( :user_id => user, :post_id => post ) )
   end
 
-  # TODO this still need to be done properly
-  def edit
-  end
+  # NO EDIT AND UPDATE SINCE EDITING NOT ALLOWED FOR COMMENTS
 
-  # TODO make sure this is aligned with edit (above)
-  def update
-  end
-
-  # TODO Ensure to have this delete comment method available
   def destroy
     comment = Comment.find_by( :id => params[ :id ] )
     comment.destroy

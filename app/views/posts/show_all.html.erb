@@ -1,5 +1,3 @@
-
-<h3 class="center-align">Gif-load</h3>
 <div class="row">
   <ul class="collapsible col s12 m8 offset-m2 l6 offset-l3" data-collapsible="accordion">
     <li>
@@ -16,13 +14,13 @@
             <%= form_for @post, :url => user_posts_path( :user_id => @current_user ), :html => { :multipart => true } do | f | %>
               <div><%= f.text_field :caption, :placeholder => "Caption..." %></div>
               <div><%= f.cl_image_upload :post_gif %></div>
-              <div class="right-align"><%= f.submit "Gif it!" %></div>
+              <div class="right-align"><%= f.submit "Gif it!", :class => "deep-purple lighten-2 btn" %></div>
             <% end %>
           </div>
           <div id="randomgif" class="col s12">
             <br />
             <%= form_for @post, :url => random_post_path( :user_id => @current_user ), :html => { :multipart => true } do | f | %>
-              <div class="center-align"><%= f.submit "I feel random!" %></div>
+              <div class="center-align"><%= f.submit "I feel random!", :class => "deep-purple lighten-2 btn" %></div>
             <% end %>
           </div>
         </div>
@@ -45,18 +43,15 @@
         <div class="card-content row valign-wrapper">
           <div class="col s2">
             <% if post.user.profile_img.include?( 'http:' ) || post.user.profile_img.include?( 'https:' ) %>
-              <%= image_tag post.user.profile_img, :alt => post.user.name, :class => "circle responsive-img" %>
+              <%= link_to( image_tag( post.user.profile_img, :alt => post.user.name, :class => "circle responsive-img" ), user_posts_path( :user_id => post.user.id ) ) %>
             <% else %>
-              <%= cl_image_tag post.user.profile_img, :alt => post.user.name, :class => "circle responsive-img" %>
+              <%= link_to( cl_image_tag( post.user.profile_img, :alt => post.user.name, :class => "circle responsive-img" ), user_posts_path( :user_id => post.user.id ) ) %>
             <% end %>
           </div>
           <div class="col s10">
             <span class="card-title grey-text text-darken-4"><%= post.caption %></span>
-            <p>posted <%= time_ago_in_words( post.created_at ) %></p>
+            <p>Posted <%= time_ago_in_words( post.created_at ) %> ago</p>
           </div>
-        </div>
-        <div class="card-action">
-          <%= link_to( "Nothing Here", "#") %>
         </div>
       </div>
     </div>

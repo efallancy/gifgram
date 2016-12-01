@@ -36,10 +36,14 @@ class PostsController < ApplicationController
 
      giphy = req[ "data" ][ "image_original_url" ]
 
+     quotelink = "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en"
+     req_quote = HTTParty.get( quotelink )
+     quoteCaption = req_quote[ "quoteText" ]
+
      post = Post.new
      post.user_id = userid
      post.post_gif = giphy
-     post.caption = "Honestly, I intentionaly did this"
+     post.caption = quoteCaption
      post.save
 
      redirect_to( posts_path )

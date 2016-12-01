@@ -14,13 +14,13 @@
         </div>
         <div class="col s10">
           <span class="card-title grey-text text-darken-4"><%= @post.caption %></span>
-          <p>Few minutes ago</p>
+          <p>Posted <%= time_ago_in_words( @post.created_at ) %> ago</p>
         </div>
       </div>
       <div class="card-action right-align">
-        <%= link_to( "I want to comment", "#modalcomment", :class => "modal-trigger waves-effect waves-light btn" ) %>
+        <%= link_to( "I want to comment", "#modalcomment", :class => "modal-trigger waves-effect waves-light btn deep-purple lighten-2" ) %>
         <% if @current_user.id == @post.user.id %>
-          <%= link_to( "Delete Post", user_post_path( :id => @post, :user_id => @post.user.id ), :method => "delete", :class => "modal-trigger waves-effect waves-light btn" ) %>
+          <%= link_to( "Delete Post", user_post_path( :id => @post, :user_id => @post.user.id ), :method => "delete", :class => "modal-trigger waves-effect waves-light btn deep-purple lighten-2" ) %>
         <% end %>
       </div>
 
@@ -51,7 +51,7 @@
               </div>
               <div class="col s10">
                 <span class="card-title grey-text text-darken-4">Commented by <%= comment.user.name %></span>
-                <p>Few minutes ago</p>
+                <p>Commented <%= time_ago_in_words( comment.created_at ) %> ago</p>
               </div>
             </div>
             <div class="card-action right-align">
@@ -81,7 +81,7 @@
               </div>
               <div class="col s10">
                 <span class="card-title grey-text text-darken-4">Commented by <%= comment.user.name %></span>
-                <p>Few minutes ago</p>
+                <p>Commented <%= time_ago_in_words( comment.created_at ) %> ago</p>
               </div>
             </div>
 
@@ -99,7 +99,6 @@
         <div class="col s12">
           <ul class="tabs tabs-fixed-width">
             <li class="tab col s3"><a class="active" href="#takedefault">Take As It Is</a></li>
-            <li class="tab col s3"><a href="#magictouch">Magic Touch</a></li>
             <li class="tab col s3"><a href="#mainstream">Mainstream</a></li>
           </ul>
         </div>
@@ -112,26 +111,6 @@
                <%= comment.submit "Comment", :class => "modal-action modal-close waves-effect waves-green btn-flat" %>
              </div>
           <% end %>
-          <div class="right-align">
-
-          </div>
-        </div>
-        <div id="magictouch" class="col s12">
-          <%= form_for @comment, :url => magic_touch_path( :user_id => @post.user.id, :post_id => @post ), :method => "post", :html => { :multipart => true } do | comment |%>
-             <div>
-               Top text: <%= text_field_tag :top_text %>
-             </div>
-             <div>
-               Bottom text: <%= text_field_tag :bottom_text %>
-             </div>
-             <div>
-               Image: <%= comment.cl_image_upload :comment_post %>
-             </div>
-             <div class="right-align">
-               <%= submit_tag "Comment", :class => "modal-action modal-close waves-effect waves-green btn-flat" %>
-             </div>
-          <% end %>
-
         </div>
         <div id="mainstream" class="col s12">
           <%= form_tag mainstream_path( :user_id => @post.user.id, :post_id => @post ), :method => "post", :html => { :multipart => true } do %>
