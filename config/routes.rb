@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   post '/users/:user_id/posts/random' => 'posts#create_random_post', :as => 'random_post'
   # User routes
   resources :users do
+    member do
+      get :following, :followers
+    end
     # Post routes
     resources :posts do
       # Comment routes
@@ -28,6 +31,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :relationships, :only => [ :create, :destroy ]
   # get '*path' => redirect( '/404.html' )
 
 

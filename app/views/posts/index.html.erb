@@ -3,13 +3,18 @@
   <div class="card-panel">
     <div class="row valign-wrapper">
       <div class="col s2">
-        <%= cl_image_tag @current_user.profile_img, :alt => @current_user.name, :class => "circle responsive-img" %>
+        <%= cl_image_tag @user.profile_img, :alt => @user.name, :class => "circle responsive-img" %>
       </div>
       <div class="col s8">
-        <span class="profile-username-font"><%= @current_user.username %></span>
+        <span class="profile-username-font"><%= @user.username %></span>
         <br />
-        <span class="profile-name-font"><%= @current_user.name %></span>
-        <%= @current_user.biography %>
+        <span class="profile-name-font"><%= @user.name %></span>
+        <%= @user.biography %>
+        <div><span id="posts"><%= @user.posts.count %> posts</span> | <span id="followers"><%= @user.follower.count %> followers</span> | <span id="following"><%= @user.followed.count %> following</span></div>
+        <%= @user.follower.pluck :name %>
+        <%= @user.followed.pluck :name %>
+        <div>
+        </div>
       </div>
     </div>
   </div>

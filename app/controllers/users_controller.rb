@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def show
     # TODO Need to change the params[ :id ] with sessions[ :user_id ]
-    @user = @current_user
+    @user = User.find_by( :id => params[ :id ] )
   end
 
   def edit
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     end
 
     user.assign_attributes( user_params )
-    # user.update( user_params )
+
     if user.save
       redirect_to user_path( user )
     else
@@ -56,6 +56,20 @@ class UsersController < ApplicationController
 
     # TODO this shall redirect to logout
     redirect_to root_path
+  end
+
+  def following
+    @title = "Following"
+    @user = User.find( params[ :id ] )
+    # @users = @user.followed.paginate( page: params[ :page ] )
+    # render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find( params[ :id ] )
+    # @users = @user.followed.paginate( page: params[ :page ] )
+    # render 'show_follow'
   end
 
   private

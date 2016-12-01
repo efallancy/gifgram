@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def index
-    @posts = User.find_by( :id => params[ :user_id ] ).posts.order( created_at: :desc )
+    @user = User.find_by( :id => params[ :user_id ] )
+    @posts = @user.posts.order( created_at: :desc )
     @post = Post.new
   end
 
