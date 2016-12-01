@@ -55,7 +55,7 @@
               </div>
             </div>
             <div class="card-action right-align">
-              <%= link_to( "Delete comment", user_post_comment_path( comment.post.user_id, comment.post_id, comment.id  ), :method => "delete" ) %>
+              <%= link_to( "Delete comment", user_post_comment_path( comment.post.user_id, comment.post_id, comment.id  ), :method => "delete", :class => "deep-purple lighten-2 btn" ) %>
             </div>
           </div>
         </div>
