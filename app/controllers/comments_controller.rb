@@ -61,7 +61,7 @@ class CommentsController < ApplicationController
   end
 
   def create_mainstream
-    binding.pry
+
     top_text = params[ :top_text ]
     bottom_text = params[ :bottom_text ]
     template_id = params[ :template_id ]
@@ -71,7 +71,7 @@ class CommentsController < ApplicationController
 
     img = response["direct"]["masked"]
 
-    binding.pry
+    
     comment = Comment.new
     comment.comment_post = img
     comment.user_id = @current_user.id

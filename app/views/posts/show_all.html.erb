@@ -1,10 +1,33 @@
-<h2>Gif-load</h2>
-<div>
-  <%= form_for @post, :url => user_posts_path( :user_id => @current_user ) do | f | %>
-    <div><%= f.text_field :caption, :placeholder => "Caption..." %></div>
-    <div><%= f.text_field :post_gif, :placeholder => "Your gif..." %></div>
-    <%= f.submit "Gif it!" %>
-  <% end %>
+<h3 class="center-align">Gif-load</h3>
+<div class="row">
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="card">
+      <div class="card-content">
+        <div class="center-align"><span class="card-title">Gif it!</span></div>
+        <div class="row">
+          <div class="col s12">
+            <ul class="tabs tabs-fixed-width">
+              <li class="tab col s3"><a class="active" href="#gifit">I gif it</a></li>
+              <li class="tab col s3"><a href="#randomgif">Random Shit</a></li>
+            </ul>
+          </div>
+          <div id="gifit" class="col s12">
+            <%= form_for @post, :url => user_posts_path( :user_id => @current_user ), :html => { :multipart => true } do | f | %>
+              <div><%= f.text_field :caption, :placeholder => "Caption..." %></div>
+              <div><%= f.cl_image_upload :post_gif %></div>
+              <div class="right-align"><%= f.submit "Gif it!" %></div>
+            <% end %>
+          </div>
+          <div id="randomgif" class="col s12">
+            <br />
+            <%= form_for @post, :url => random_post_path( :user_id => @current_user ), :html => { :multipart => true } do | f | %>
+              <div class="center-align"><%= f.submit "I feel random!" %></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <br />
@@ -14,7 +37,7 @@
     <div class="col s12 m8 offset-m2 l6 offset-l3">
       <div class="card hoverable">
         <div class="card-image">
-          <%= link_to( image_tag( post.post_gif, :class => "activator" ), user_post_comments_path( :user_id => post.user.id, :post_id => post.id ) )%>
+          <%= link_to( cl_image_tag( post.post_gif, :class => "activator" ), user_post_comments_path( :user_id => post.user.id, :post_id => post.id ) )%>
         </div>
         <div class="card-content row valign-wrapper">
           <div class="col s2">

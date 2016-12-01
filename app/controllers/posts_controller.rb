@@ -11,10 +11,37 @@ class PostsController < ApplicationController
   def create
     # TODO make sure to use the API Giphy / Gif generator
     # This will be used to crete new gif
-    post = Post.new( post_params )
+
+    post = Post.new
+
+    if params[ :file ].present?
+      req = Cloudinary::Uploader.upload( params[ :file ] )
+      post.post_gif = req[ 'public_id' ]
+    end
+
+    post.caption = post_params[ :caption ]
     post.user_id = @current_user.id
     post.save
+
     redirect_to( posts_path )
+  end
+
+  def create_random_post
+
+     userid = params[ :user_id ]
+
+     link = "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC"
+     req = HTTParty.get( link )
+
+     giphy = req[ "data" ][ "image_original_url" ]
+
+     post = Post.new
+     post.user_id = userid
+     post.post_gif = giphy
+     post.caption = "Honestly, I intentionaly did this"
+     post.save
+
+     redirect_to( posts_path )
   end
 
   def edit

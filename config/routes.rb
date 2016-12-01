@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   post '/users/:user_id/posts/:post_id/comments/magictouch' => 'comments#create_magic_touch', :as => 'magic_touch'
   post '/users/:user_id/posts/:post_id/comments/mainstream' => 'comments#create_mainstream', :as => 'mainstream'
+  post '/users/:user_id/posts/random' => 'posts#create_random_post', :as => 'random_post'
   # User routes
   resources :users do
     # Post routes
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
+  # get '*path' => redirect( '/404.html' )
 
 
   # The priority is based upon order of creation: first created -> highest priority.
