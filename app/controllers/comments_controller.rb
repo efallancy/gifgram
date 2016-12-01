@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
 
   def index
     @post = Post.find_by( :id => params[ :post_id ] )
-    @comments = @post.comments.order( :created_at )
+    @comments = @post.comments.order( created_at: :desc )
     @comment = Comment.new
     @templates = templates
   end
@@ -71,7 +71,7 @@ class CommentsController < ApplicationController
 
     img = response["direct"]["masked"]
 
-    
+
     comment = Comment.new
     comment.comment_post = img
     comment.user_id = @current_user.id

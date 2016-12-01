@@ -10,9 +10,7 @@
         <br />
         <span class="profile-name-font"><%= @user.name %></span>
         <%= @user.biography %>
-        <div><span id="posts"><%= @user.posts.count %> posts</span> | <span id="followers"><%= @user.follower.count %> followers</span> | <span id="following"><%= @user.followed.count %> following</span></div>
-        <%= @user.follower.pluck :name %>
-        <%= @user.followed.pluck :name %>
+        <div><span id="posts"><%= @user.posts.count %> posts</span></div>
         <div>
         </div>
       </div>
