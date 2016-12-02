@@ -6,12 +6,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    # TODO Need to change the params[ :id ] with sessions[ :user_id ]
     @user = User.find_by( :id => params[ :id ] )
   end
 
   def edit
-    # TODO Changed on to use the sessions[ :id ]
     @user = @current_user
   end
 
@@ -20,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    # TODO Make sure reference it with sessions
+
     @user = User.new( user_params )
     if @user.save
       session[ :user_id ] = @user.id
@@ -31,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    # TODO make sure to use current user
+
     user = @current_user
 
     if params[ :file ].present?
