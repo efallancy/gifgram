@@ -49,27 +49,12 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    # TODO make sure to use current user
+
     user = @current_user
     user.destroy
     session[ :user_id ] = nil
 
-    # TODO this shall redirect to logout
     redirect_to root_path
-  end
-
-  def following
-    @title = "Following"
-    @user = User.find( params[ :id ] )
-    # @users = @user.followed.paginate( page: params[ :page ] )
-    # render 'show_follow'
-  end
-
-  def followers
-    @title = "Followers"
-    @user = User.find( params[ :id ] )
-    # @users = @user.followed.paginate( page: params[ :page ] )
-    # render 'show_follow'
   end
 
   private
@@ -77,7 +62,6 @@ class UsersController < ApplicationController
       params.require( :user ).permit( :name, :username, :email, :profile_img, :biography, :password, :password_confirmation )
     end
 
-    # TODO Need to configure the redirect when login is failed
     def authorise
       if !@current_user.present?
         flash[ :error ] = "You will need to log in."
