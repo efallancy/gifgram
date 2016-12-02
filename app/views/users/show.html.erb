@@ -4,10 +4,10 @@
   <div class="card-panel grey lighten-5 z-depth-1">
     <div class="row valign-wrapper">
       <div class="col s2">
-        <% if @user.profile_img.size > 0 %>
+        <% if @user.profile_img  %>
          <%= cl_image_tag @user.profile_img, :class => "circle responsive-img" %>
         <% else %>
-          <%= cl_image_tag '/paper-bag-face.png', :class => "circle responsive-img" %>
+          <p>Get your image up and running!</p>
         <% end %>
       </div>
       <div class="col s8">

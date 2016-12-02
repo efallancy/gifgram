@@ -7,7 +7,6 @@ class CommentsController < ApplicationController
     @templates = templates
   end
 
-  # TODO double confirm on this thing
   def show
   end
 

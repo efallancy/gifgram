@@ -10,9 +10,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    # TODO make sure to use the API Giphy / Gif generator
-    # This will be used to crete new gif
-
     post = Post.new
 
     if params[ :file ].present?
@@ -60,7 +57,6 @@ class PostsController < ApplicationController
     redirect_to( user_posts_path( post.user) )
   end
 
-  # TODO make sure to have this being implemented
   def destroy
     post = Post.find_by( :id => params[ :id ] )
     post.destroy
