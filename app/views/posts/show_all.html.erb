@@ -40,9 +40,9 @@
         </div>
         <div class="card-content row valign-wrapper">
           <div class="col s2">
-            <% p post.user.profile_img %>
-            <% #if post.user.profile_img.include?( 'http:' ) || post.user.profile_img.include?( 'https:' ) %>
-              <%#= link_to( cl_image_tag( post.user.profile_img, :alt => post.user.name, :class => "circle responsive-img" ), user_posts_path( :user_id => post.user.id ) ) %>
+            <% p post.user.profile_img.include?( 'https://' ) %>
+            <% #if post.user.profile_img.include?( 'http://' ) || post.user.profile_img.include?( 'https://' ) %>
+              <%#= link_to( image_tag( post.user.profile_img, :alt => post.user.name, :class => "circle responsive-img" ), user_posts_path( :user_id => post.user.id ) ) %>
             <% #else %>
               <%#= link_to( cl_image_tag( post.user.profile_img, :alt => post.user.name, :class => "circle responsive-img" ), user_posts_path( :user_id => post.user.id ) ) %>
             <% #end %>
