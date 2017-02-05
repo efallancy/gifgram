@@ -1,5 +1,11 @@
 <h2>Sign In</h2>
 
+<% if flash[ :error ] %>
+  <div><i><%= flash[ :error ] %></i></div>
+  <br/>
+  <% flash[ :error ] = "" %>
+<% end %>
+
 <%= form_tag login_path do %>
   <div>
     Username: <%= text_field_tag :username %>
