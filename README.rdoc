@@ -1,7 +1,7 @@
 == Gifgram
 
 Link to this app is at <tt>http://gifgram.herokuapp.com</tt>
-Just another site that offers your gif as the platform to gauge interactions among gifers.
+Just another site that offers gif as the platform to gauge interactions among gifers.
 
 
 Notes:
